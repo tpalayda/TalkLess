@@ -10,13 +10,14 @@ import android.os.Vibrator
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
-
     //private lateinit var button : Button
     companion object {
         const val MY_PERMISSIONS_VIBRATE = 1
@@ -53,5 +54,11 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.VIBRATE), MY_PERMISSIONS_VIBRATE)
             Log.wtf("123", "request permission")
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater : MenuInflater = menuInflater
+        inflater.inflate(R.menu.activity_main_menu, menu)
+        return true
     }
 }
