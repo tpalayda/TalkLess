@@ -15,7 +15,16 @@
         android:id="@+id/test_button"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_margin="100dp"
         android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_centerVertical="true"
+        android:progress="0"
+        android:id="@+id/progressBar"
+        android:layout_height="wrap_content"
+        />
 
 </RelativeLayout>

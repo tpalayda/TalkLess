@@ -3,11 +3,8 @@ package com.tpalayda.talkless
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
+import android.os.*
 import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -16,6 +13,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.tpalayda.talkless.Settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.doAsync
 
 class MainActivity : AppCompatActivity() {
     //private lateinit var button : Button
@@ -29,13 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         checkPermissions()
         test_button.setOnClickListener {
-            val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            updateProgressBar()
+            /*            val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
             if(Build.VERSION.SDK_INT >= 26) {
                 v.vibrate(VibrationEffect.createOneShot(1000, 1))
             } else {
                 v.vibrate(1000);
-            }
+            }*/
         }
     }
 
@@ -72,5 +71,13 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
-
+    private fun updateProgressBar() {
+        doAsync {
+            var progress = 0
+            while(progress < 100) {
+                progressBar.progress = ++progress
+                SystemClock.sleep(300)
+            }
+        }
+    }
 }
