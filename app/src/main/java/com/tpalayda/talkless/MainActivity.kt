@@ -1,6 +1,7 @@
 package com.tpalayda.talkless
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
@@ -13,10 +14,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.Toast
+import com.tpalayda.talkless.Settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
     //private lateinit var button : Button
@@ -59,14 +58,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater : MenuInflater = menuInflater
-        inflater.inflate(R.menu.activity_main_menu, menu)
+        inflater.inflate(R.menu.main_menu_settings, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.settings -> {
-                Log.wtf("123", "clicked");
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
                 return true;
             }
         }
