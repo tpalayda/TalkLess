@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -61,4 +62,15 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.activity_main_menu, menu)
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.settings -> {
+                Log.wtf("123", "clicked");
+                return true;
+            }
+        }
+        return true
+    }
+
 }
