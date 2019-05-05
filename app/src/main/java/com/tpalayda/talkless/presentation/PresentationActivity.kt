@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.util.Log
+import android.view.View
 import com.tpalayda.talkless.R
 import kotlinx.android.synthetic.main.activity_presentation.*
 import java.io.File
@@ -47,6 +48,15 @@ class PresentationActivity : AppCompatActivity() {
                         Log.wtf("123", "displayName: " + file.name)
                     }
                     Log.wtf("123", "path:" + path)
+                    uploadButton.visibility = View.GONE
+                    pdfView.fromUri(uri)
+                            .defaultPage(0)
+                            .swipeHorizontal(true)
+                            .enableDoubletap(true)
+                            .onPageChange { page, pageCount ->
+                                Log.wtf("123", "page:" + page)
+                            }
+                            .load()
                 }
             }
         }
