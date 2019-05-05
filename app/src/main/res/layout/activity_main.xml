@@ -6,25 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
-    <Button
-        android:id="@+id/test_button"
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="100dp"
-        android:layout_height="wrap_content" />
-
     <ProgressBar
         android:layout_width="match_parent"
-        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_height="match_parent"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progressDrawable="@drawable/progressbar_states"
         android:layout_centerVertical="true"
         android:progress="0"
-        android:id="@+id/progressBar"
-        android:layout_height="wrap_content"
-        />
+        android:max="100"
+        android:id="@+id/progressBar" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+            <NumberPicker
+                android:id="@+id/hoursNumberPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants" />
+
+            <NumberPicker
+                android:id="@+id/minutesNumberPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants" />
+
+            <NumberPicker
+                android:id="@+id/secondsNumberPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/countdownText"
+        android:text=""
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textSize="50sp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/countdownButton"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="start"
+        android:layout_height="wrap_content" />
+
+
+    <ImageButton
+        android:id="@+id/pauseButton"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@null"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_pause_black_48dp"
+        android:contentDescription="@string/pause"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@null"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_play_arrow_black_48dp"
+        android:contentDescription="@string/play"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
