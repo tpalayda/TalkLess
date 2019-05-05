@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import com.tpalayda.talkless.R
 import kotlinx.android.synthetic.main.activity_presentation.*
@@ -49,17 +52,34 @@ class PresentationActivity : AppCompatActivity() {
                     }
                     Log.wtf("123", "path:" + path)
                     uploadButton.visibility = View.GONE
+                    pdfView.visibility = View.VISIBLE
                     pdfView.fromUri(uri)
                             .defaultPage(0)
+                            .enableSwipe(true)
                             .swipeHorizontal(true)
                             .enableDoubletap(true)
                             .onPageChange { page, pageCount ->
                                 Log.wtf("123", "page:" + page)
-                            }
-                            .load()
+                            }.load()
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater : MenuInflater = menuInflater
+        inflater.inflate(R.menu.presentation_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.close -> {
+                pdfView.visibility = View.GONE
+                uploadButton.visibility = View.VISIBLE
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
