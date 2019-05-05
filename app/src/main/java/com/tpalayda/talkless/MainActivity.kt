@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TimePicker
 import com.tpalayda.talkless.Settings.SettingsActivity
+import com.tpalayda.talkless.presentation.PresentationActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import java.text.DecimalFormat
@@ -132,6 +133,11 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.activity -> {
+                val intent = Intent(this, PresentationActivity::class.java)
                 startActivity(intent)
                 return true
             }
