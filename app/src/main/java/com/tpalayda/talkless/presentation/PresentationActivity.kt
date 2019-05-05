@@ -2,7 +2,6 @@ package com.tpalayda.talkless.presentation
 
 import android.content.Intent
 import android.database.Cursor
-import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -15,7 +14,12 @@ import com.tpalayda.talkless.R
 import kotlinx.android.synthetic.main.activity_presentation.*
 import java.io.File
 
+
+//TODO save state
 class PresentationActivity : AppCompatActivity() {
+
+    private var startTime : Long = 0
+    private var endTime : Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +40,18 @@ class PresentationActivity : AppCompatActivity() {
                     val file = File(uriString)
                     val path = file.absolutePath
 
-                    if(uriString.startsWith("content://")) {
-                        var cursor : Cursor?
+                    if (uriString.startsWith("content://")) {
+                        var cursor: Cursor?
                         cursor = null
                         try {
                             cursor = contentResolver.query(uri, null, null, null, null)
-                            if(cursor != null && cursor.moveToFirst()) {
+                            if (cursor != null && cursor.moveToFirst()) {
                                 Log.wtf("123", "displayName: " + cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)))
                             }
                         } finally {
                             cursor?.close()
                         }
-                    } else if(uriString.startsWith("file://")) {
+                    } else if (uriString.startsWith("file://")) {
                         Log.wtf("123", "displayName: " + file.name)
                     }
                     Log.wtf("123", "path:" + path)
@@ -59,7 +63,15 @@ class PresentationActivity : AppCompatActivity() {
                             .swipeHorizontal(true)
                             .enableDoubletap(true)
                             .onPageChange { page, pageCount ->
-                                Log.wtf("123", "page:" + page)
+                                if(startTime != 0L ) {
+                                    endTime = System.currentTimeMillis()
+                                    val timeSpent = endTime - startTime
+                                    startTime = System.currentTimeMillis()
+                                    Log.wtf("123", "time:" + timeSpent)
+                                    Log.wtf("123", "page:" + page) //page is a new page
+                                } else {
+                                    startTime = System.currentTimeMillis()
+                                }
                             }.load()
                 }
             }
