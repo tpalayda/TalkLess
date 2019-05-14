@@ -1,4 +1,4 @@
-package com.tpalayda.talkless.Settings
+package com.tpalayda.talkless.settings
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

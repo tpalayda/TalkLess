@@ -1,4 +1,4 @@
-package com.tpalayda.talkless.Settings
+package com.tpalayda.talkless.settings
 
 import android.os.Bundle
 import android.support.v7.preference.PreferenceFragmentCompat

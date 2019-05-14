@@ -12,13 +12,10 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.TimePicker
-import com.tpalayda.talkless.Settings.SettingsActivity
+import com.tpalayda.talkless.settings.SettingsActivity
 import com.tpalayda.talkless.presentation.PresentationActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.doAsync
 import java.text.DecimalFormat
-import java.text.NumberFormat
 
 
 //TODO save state when rotate

@@ -9,10 +9,21 @@
     <Button
         android:id="@+id/uploadButton"
         android:layout_width="wrap_content"
-        android:text="try to present"
+        android:text="@string/try_to_present"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/showStatisticsButton"
+        android:layout_below="@id/uploadButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/showStatistics"
+        />
+
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"

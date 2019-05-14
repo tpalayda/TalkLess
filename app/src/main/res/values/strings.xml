@@ -3,4 +3,6 @@
     <string name="settings">Settings</string>
     <string name="pause">pause</string>
     <string name="play">continue</string>
+    <string name="try_to_present">try to present</string>
+    <string name="showStatistics">show statistics</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.tpalayda.talkless.Fragments
+package com.tpalayda.talkless.fragments
 
 import android.app.Dialog
 import android.app.DialogFragment

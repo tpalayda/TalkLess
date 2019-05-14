@@ -2,6 +2,8 @@ package com.tpalayda.talkless.presentation
 
 import android.content.Intent
 import android.database.Cursor
+import android.database.DatabaseUtils
+import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -11,7 +13,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import com.tpalayda.talkless.R
+import com.tpalayda.talkless.database.MyDatabaseOpenHelper
+import com.tpalayda.talkless.database.database
 import kotlinx.android.synthetic.main.activity_presentation.*
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.doAsync
 import java.io.File
 
 
@@ -28,6 +34,10 @@ class PresentationActivity : AppCompatActivity() {
         uploadButton.setOnClickListener {
             val intent = Intent().setAction(Intent.ACTION_GET_CONTENT).setType("application/pdf")
             startActivityForResult(Intent.createChooser(intent, "Select a file"), 1212)
+        }
+
+        showStatisticsButton.setOnClickListener {
+            val intent = Intent()
         }
     }
 
@@ -46,7 +56,13 @@ class PresentationActivity : AppCompatActivity() {
                         try {
                             cursor = contentResolver.query(uri, null, null, null, null)
                             if (cursor != null && cursor.moveToFirst()) {
-                                Log.wtf("123", "displayName: " + cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)))
+                                val displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)) as String
+                                Log.wtf("123", "displayName: " + displayName)
+                                doAsync {
+                                    database.writableDatabase.insert("Presentation", "name" to displayName)
+                                }
+                                val count = DatabaseUtils.queryNumEntries(database.readableDatabase, "Presentation")
+                                Log.wtf("123", "d: " + count)
                             }
                         } finally {
                             cursor?.close()
@@ -55,7 +71,10 @@ class PresentationActivity : AppCompatActivity() {
                         Log.wtf("123", "displayName: " + file.name)
                     }
                     Log.wtf("123", "path:" + path)
+
                     uploadButton.visibility = View.GONE
+                    showStatisticsButton.visibility = View.GONE
+
                     pdfView.visibility = View.VISIBLE
                     pdfView.fromUri(uri)
                             .defaultPage(0)
@@ -90,6 +109,7 @@ class PresentationActivity : AppCompatActivity() {
             R.id.close -> {
                 pdfView.visibility = View.GONE
                 uploadButton.visibility = View.VISIBLE
+                showStatisticsButton.visibility = View.VISIBLE
             }
         }
         return super.onOptionsItemSelected(item)
