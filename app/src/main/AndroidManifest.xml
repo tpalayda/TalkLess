@@ -21,8 +21,10 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".presentation.PresentationActivity" android:parentActivityName=".MainActivity">
-        </activity>
+        <activity
+            android:name=".presentation.PresentationActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".recyclerview.PresentationRecyclerViewActivity"></activity>
     </application>
 
 </manifest>

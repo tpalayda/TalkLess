@@ -15,6 +15,7 @@ import android.view.View
 import com.tpalayda.talkless.R
 import com.tpalayda.talkless.database.MyDatabaseOpenHelper
 import com.tpalayda.talkless.database.database
+import com.tpalayda.talkless.recyclerview.PresentationRecyclerViewActivity
 import kotlinx.android.synthetic.main.activity_presentation.*
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.doAsync
@@ -37,7 +38,8 @@ class PresentationActivity : AppCompatActivity() {
         }
 
         showStatisticsButton.setOnClickListener {
-            val intent = Intent()
+            val intent = Intent(this, PresentationRecyclerViewActivity::class.java)
+            startActivity(intent)
         }
     }
 
