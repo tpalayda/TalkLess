@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.PresentationActivity">
+    tools:context=".fragments.PresentationFragment">
 
     <Button
         android:id="@+id/uploadButton"
@@ -14,19 +14,17 @@
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/showStatisticsButton"
-        android:layout_below="@id/uploadButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/showStatistics"
-        />
-
-
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_close_black_24dp"
+        android:visibility="gone"
+        android:contentDescription="@string/close"
+        android:layout_alignEnd="@id/pdfView" />
 </RelativeLayout>

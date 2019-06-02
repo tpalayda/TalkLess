@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_timer"
+        android:icon="@drawable/ic_access_time_black_24dp"
+        android:title="@string/timer" />
+
+    <item
+        android:id="@+id/navigation_presentation"
+        android:icon="@drawable/ic_presentation_black_24dp"
+        android:title="@string/presentation" />
+
+    <item
+        android:id="@+id/navigation_statistics"
+        android:icon="@drawable/ic_poll_black_24dp"
+        android:title="@string/statistics" />
+
+</menu>

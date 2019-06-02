@@ -2,6 +2,7 @@ package com.tpalayda.talkless.database
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.tpalayda.talkless.recyclerview.StatisticsRecyclerViewFragment
 import org.jetbrains.anko.db.*
 
 class MyDatabaseOpenHelper private constructor(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "talklessdb", null, 1) {
@@ -19,10 +20,15 @@ class MyDatabaseOpenHelper private constructor(ctx: Context) : ManagedSQLiteOpen
     override fun onCreate(db: SQLiteDatabase) {
         db.createTable("Presentation", true,
                 "id" to INTEGER + PRIMARY_KEY,
-                "name" to TEXT + UNIQUE)
-        //db.createTable("PresentationTimer", true,
-        //        "id" to INTEGER + PRIMARY_KEY
-        //        "")
+                "name" to TEXT,
+                "date" to TEXT)
+
+        db.createTable("PresentationInfo", true,
+                "id" to INTEGER + PRIMARY_KEY,
+                "slideNumber" to TEXT,
+                "spentTime" to TEXT,
+                "fg_presentation" to INTEGER,
+                FOREIGN_KEY("fg_presentation", "Presentation", "id"))
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

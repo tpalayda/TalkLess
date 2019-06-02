@@ -13,7 +13,7 @@
 
 
     <TextView
-        android:id="@+id/presentation_title"
+        android:id="@+id/slide_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -22,7 +22,7 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/presentation_date"
+        android:id="@+id/slide_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
