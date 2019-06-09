@@ -57,11 +57,11 @@ class PresentationFragment : Fragment() {
         return rootView
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode) {
             1212 -> {
                 if(resultCode == AppCompatActivity.RESULT_OK) {
-                    val uri = data.data
+                    val uri = data?.data
                     val uriString = uri.toString()
                     val file = File(uriString)
                     val path = file.absolutePath
@@ -132,16 +132,15 @@ class PresentationFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun saveHashMap() {
+    private fun saveHashMap() {
         doAsync {
             if(presentationId != null && presentationId != -1L) {
                 hashMap.forEach {
                     k, v ->
 
-                    val key = k.toInt()
                     val id = presentationId?.toInt()
                     context?.database?.writableDatabase?.insert("PresentationInfo",
-                            "slideNumber" to key,
+                            "slideNumber" to k,
                             "spentTime" to v,
                             "fg_presentation" to id)
                 }

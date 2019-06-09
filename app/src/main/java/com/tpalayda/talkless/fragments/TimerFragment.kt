@@ -25,7 +25,7 @@ class TimerFragment : Fragment() {
 
     private var totalTime : Long = 0
     private var vibrationTime : Long = 100
-    private lateinit var countdownTimer : CountDownTimer
+    private lateinit var countdownTimer : MyCountDownTimer
     private var i = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class TimerFragment : Fragment() {
         setNumberPickerFormatters(rootView)
         setNumberPickerValues(rootView)
 
-        rootView.countdownButton.setOnClickListener {
+        rootView.startButton.setOnClickListener {
             totalTime = 0
             totalTime += hoursNumberPicker.value * 3600000
             totalTime += minutesNumberPicker.value * 60000
@@ -49,54 +49,38 @@ class TimerFragment : Fragment() {
 
             rootView.countdownText.visibility = View.VISIBLE
             rootView.pauseButton.visibility = View.VISIBLE
-            rootView.countdownButton.visibility = View.GONE
+            rootView.stopButton.visibility = View.VISIBLE
+            rootView.startButton.visibility = View.GONE
 
-            countdownTimer = object : CountDownTimer(totalTime, 100) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val minutes = millisUntilFinished / 60000
-                    val seconds = millisUntilFinished % 60000 / 1000
-
-                    var timeLeftText = "" + minutes + ":"
-                    if(seconds < 10)
-                        timeLeftText += "0"
-                    timeLeftText += seconds
-                    ++i
-                    countdownText.text = timeLeftText
-
-                    val fraction : Float = millisUntilFinished/totalTime.toFloat()
-                    rootView.progressBar.progress = (fraction*100).toInt()
-                }
-
-                override fun onFinish() {
-                    rootView.progressBar.progress = 0
-
-                    if(vibrationTime > 0) {
-                        val vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                        if(Build.VERSION.SDK_INT >= 26) {
-                            vibrator.vibrate(VibrationEffect.createOneShot(vibrationTime, 10))
-                        } else {
-                            vibrator.vibrate(vibrationTime);
-                        }
-                    }
-
-                    rootView.countdownText.visibility = View.GONE
-                    rootView.pauseButton.visibility = View.GONE
-                    rootView.countdownButton.visibility = View.VISIBLE
-                    showNumberPickers(rootView)
-                }
-            }.start()
+            countdownTimer = MyCountDownTimer(totalTime, 100, rootView, vibrationTime, this.context!!, totalTime)
+            countdownTimer.start()
         }
 
         rootView.pauseButton.setOnClickListener {
-            countdownTimer.cancel()
+            countdownTimer.pause()
             rootView.pauseButton.visibility = View.GONE
             rootView.continueButton.visibility = View.VISIBLE
         }
 
         rootView.continueButton.setOnClickListener {
+            countdownTimer.resume()
+            val remainingTime = countdownTimer.timeRemaining
+            countdownTimer = MyCountDownTimer(remainingTime, 100, rootView, vibrationTime, this.context!!, totalTime)
             countdownTimer.start()
             rootView.pauseButton.visibility = View.VISIBLE
             rootView.continueButton.visibility = View.GONE
+        }
+
+        rootView.stopButton.setOnClickListener {
+            countdownTimer.cancel()
+            rootView.continueButton.visibility = View.GONE
+            rootView.stopButton.visibility = View.GONE
+            rootView.pauseButton.visibility = View.GONE
+            rootView.countdownText.visibility = View.GONE
+            rootView.countdownText.text = ""
+            progressBar.progress = 0
+            rootView.startButton.visibility = View.VISIBLE
+            showNumberPickers(rootView)
         }
 
         return rootView
@@ -141,4 +125,12 @@ class TimerFragment : Fragment() {
         rootView.minutesNumberPicker.visibility = View.VISIBLE
         rootView.secondsNumberPicker.visibility = View.VISIBLE
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        //outState.putInt("progressBarValue", progressBar.progress)
+        //TODO visibility of buttons, etc.
+        super.onSaveInstanceState(outState)
+    }
+
 }
+

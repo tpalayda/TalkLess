@@ -6,17 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".fragments.PresentationFragment">
 
+
     <Button
         android:id="@+id/uploadButton"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/try_to_present"
+        android:drawableTop="@drawable/ic_file_upload_black_150dp"
         android:text="@string/try_to_present"
+        android:background="@null"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"/>
+        android:visibility="visible"
+        android:layout_centerHorizontal="true" />
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent"/>
 
     <ImageButton
@@ -24,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_close_black_24dp"
+        android:background="@null"
         android:visibility="gone"
         android:contentDescription="@string/close"
         android:layout_alignEnd="@id/pdfView" />
