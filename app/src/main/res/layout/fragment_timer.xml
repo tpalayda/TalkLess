@@ -44,10 +44,11 @@ tools:context=".fragments.TimerFragment">
     <TextView
         android:id="@+id/countdownText"
         android:text=""
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:paddingBottom="20dp"
         android:textSize="50sp"
         android:layout_height="wrap_content" />
 
@@ -65,10 +66,9 @@ tools:context=".fragments.TimerFragment">
     <ImageButton
         android:id="@+id/pauseButton"
         android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/countdownText"
         android:background="@null"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_pause_black_48dp"
         android:contentDescription="@string/pause"
@@ -77,10 +77,9 @@ tools:context=".fragments.TimerFragment">
     <ImageButton
         android:id="@+id/continueButton"
         android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/countdownText"
         android:background="@null"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_play_arrow_black_48dp"
         android:contentDescription="@string/play"
@@ -89,13 +88,10 @@ tools:context=".fragments.TimerFragment">
     <ImageButton
         android:id="@+id/stopButton"
         android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/countdownText"
         android:background="@null"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
         android:visibility="gone"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="90dp"
         app:srcCompat="@drawable/ic_stop_black_48dp"
         android:contentDescription="@string/play"
         android:layout_height="wrap_content" />

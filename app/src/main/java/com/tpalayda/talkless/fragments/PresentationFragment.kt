@@ -1,9 +1,11 @@
 package com.tpalayda.talkless.fragments
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.DatabaseUtils
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.provider.OpenableColumns
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +13,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
+import com.github.barteksc.pdfviewer.util.FitPolicy
 import com.tpalayda.talkless.database.database
 import com.tpalayda.talkless.R
 import com.tpalayda.talkless.recyclerview.StatisticsRecyclerViewFragment
@@ -31,9 +35,13 @@ class PresentationFragment : Fragment() {
     private var endTime : Long = 0
     private var hashMap : MutableMap<Int, Long> = mutableMapOf()
     private var presentationId : Long? = null
+    private lateinit var preferences: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -97,15 +105,21 @@ class PresentationFragment : Fragment() {
                     uploadButton.visibility = View.GONE
                     closeButton.visibility = View.VISIBLE
 
+                    val nightMode : Boolean = preferences.getBoolean("nightModePref", false)
+                    val swipeMode : Boolean = preferences.getBoolean("horizontalSwipePref", false)
                     pdfView.visibility = View.VISIBLE
                     pdfView.fromUri(uri)
                             .defaultPage(0)
-                            .enableSwipe(true)
-                            .swipeHorizontal(true)
+                            .enableSwipe(swipeMode)
+                            .swipeHorizontal(swipeMode)
                             .enableDoubletap(true)
                             .enableAntialiasing(true)
-                            .pageFling(true)
-                            .nightMode(true)
+                            .pageFling(swipeMode)
+                            .pageSnap(swipeMode)
+                            .autoSpacing(swipeMode)
+                            .nightMode(nightMode)
+                            .scrollHandle(null)
+                            .pageFitPolicy(FitPolicy.BOTH)
                             .onPageChange { page, pageCount ->
                                 if(hashMap.isEmpty()) {
                                     for(x in 0 until pageCount)
