@@ -15,18 +15,21 @@ class MyCountDownTimer : CountDownTimer {
     private var rootView : View
     private var ctx : Context
     private var vibrationTime = 0L
+    private var vibrationAmplitude = 0L
     private var i = 0
     private var totalTime = 0L
     private var currentTime = 0L
-    var timeRemaining = 0L
+    var timeRemaining : Long = 0L
+
 
     constructor(millisInFuture : Long, countDownInterval : Long, view : View,
-                vibrationTime : Long, ctx : Context, totalTime : Long) : super(millisInFuture, countDownInterval) {
+                vibrationTime : Long, ctx : Context, totalTime : Long, vibrationAmplitude : Long) : super(millisInFuture, countDownInterval) {
         rootView = view
         this.vibrationTime = vibrationTime
         this.ctx = ctx
         this.totalTime = totalTime
         this.currentTime = millisInFuture
+        this.vibrationAmplitude = vibrationAmplitude
     }
 
     fun pause() {
@@ -51,6 +54,7 @@ class MyCountDownTimer : CountDownTimer {
 
         rootView.countdownText.visibility = View.GONE
         rootView.pauseButton.visibility = View.GONE
+        rootView.stopButton.visibility = View.GONE
         rootView.startButton.visibility = View.VISIBLE
         showNumberPickers(rootView)
     }

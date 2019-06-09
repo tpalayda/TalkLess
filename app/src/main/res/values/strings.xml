@@ -17,4 +17,5 @@
     <string name="vibrationTime">Vibration time</string>
     <string name="vibrationTimeKey">vibrationTime</string>
     <string name="vibrationAmplitude">Vibration amplitude</string>
+    <string name="prefColor">Color</string>
 </resources>

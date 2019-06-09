@@ -103,6 +103,9 @@ class PresentationFragment : Fragment() {
                             .enableSwipe(true)
                             .swipeHorizontal(true)
                             .enableDoubletap(true)
+                            .enableAntialiasing(true)
+                            .pageFling(true)
+                            .nightMode(true)
                             .onPageChange { page, pageCount ->
                                 if(hashMap.isEmpty()) {
                                     for(x in 0 until pageCount)

@@ -1,9 +1,11 @@
 package com.tpalayda.talkless.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.*
+import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -23,13 +25,20 @@ class TimerFragment : Fragment() {
         const val MY_PERMISSIONS_VIBRATE = 1
     }
 
-    private var totalTime : Long = 0
-    private var vibrationTime : Long = 100
+    private lateinit var preferences: SharedPreferences
+
+    private var totalTime : Long = 0L
     private lateinit var countdownTimer : MyCountDownTimer
-    private var i = 0
+    private var vibrationTime : Long = 1L
+    private var vibrationAmplitude : Long = 1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        vibrationTime = preferences.getInt(getString(R.string.vibrationTimeKey), 1).toLong()*1000L
+        vibrationAmplitude = preferences.getInt("vibrationAmplitude", 1).toLong()
+        Log.wtf("123", "vibrationTime:" + vibrationTime)
+        Log.wtf("123", "vibrationAmplitude:" + vibrationAmplitude)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +61,13 @@ class TimerFragment : Fragment() {
             rootView.stopButton.visibility = View.VISIBLE
             rootView.startButton.visibility = View.GONE
 
-            countdownTimer = MyCountDownTimer(totalTime, 100, rootView, vibrationTime, this.context!!, totalTime)
+            countdownTimer = MyCountDownTimer(totalTime, 100,
+                    rootView,
+                    vibrationTime,
+                    this.context!!,
+                    totalTime,
+                    vibrationAmplitude)
+
             countdownTimer.start()
         }
 
@@ -65,7 +80,7 @@ class TimerFragment : Fragment() {
         rootView.continueButton.setOnClickListener {
             countdownTimer.resume()
             val remainingTime = countdownTimer.timeRemaining
-            countdownTimer = MyCountDownTimer(remainingTime, 100, rootView, vibrationTime, this.context!!, totalTime)
+            countdownTimer = MyCountDownTimer(remainingTime, 100, rootView, vibrationTime, this.context!!, totalTime, vibrationAmplitude)
             countdownTimer.start()
             rootView.pauseButton.visibility = View.VISIBLE
             rootView.continueButton.visibility = View.GONE

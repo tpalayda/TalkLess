@@ -3,6 +3,7 @@ package com.tpalayda.talkless.main
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -17,6 +18,7 @@ import com.tpalayda.talkless.fragments.PresentationFragment
 import com.tpalayda.talkless.fragments.TimerFragment
 import com.tpalayda.talkless.fragments.TimerFragment.Companion.MY_PERMISSIONS_VIBRATE
 import com.tpalayda.talkless.recyclerview.StatisticsRecyclerViewFragment
+import com.tpalayda.talkless.settings.PreferencesFragment
 import com.tpalayda.talkless.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private val timerFragment = TimerFragment()
     private val presentationFragment = PresentationFragment()
-
     private var activeFragment = timerFragment as Fragment
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
