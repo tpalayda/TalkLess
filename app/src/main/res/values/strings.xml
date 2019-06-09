@@ -5,8 +5,6 @@
     <string name="play">continue</string>
     <string name="try_to_present">try to present</string>
     <string name="showStatistics">show statistics</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main_b">MainActivityB</string>
     <string name="title_home">Home</string>
@@ -16,5 +14,7 @@
     <string name="statistics">Statistics</string>
     <string name="presentation">Presentation</string>
     <string name="close">Close</string>
-    <string name="vibrationTime">vibrationTime</string>
+    <string name="vibrationTime">Vibration time</string>
+    <string name="vibrationTimeKey">vibrationTime</string>
+    <string name="vibrationAmplitude">Vibration amplitude</string>
 </resources>

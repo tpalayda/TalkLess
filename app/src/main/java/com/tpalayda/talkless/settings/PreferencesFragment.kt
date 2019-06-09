@@ -20,7 +20,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listView.viewTreeObserver.addOnDrawListener {
-            val sizePref = findPreference(getString(R.string.vibrationTime))
+            val sizePref = findPreference(getString(R.string.vibrationTimeKey))
 
             val prefView: View? = listView.layoutManager.findViewByPosition(sizePref.order)
             prefView?.apply {
