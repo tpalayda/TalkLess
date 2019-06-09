@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
         android:key="switch"
         android:title="testing switch"
         android:summary="something here"/>
-</PreferenceScreen>
+
+    <SeekBarPreference
+        android:key="@string/vibrationTime"
+        android:title="Vibration time"
+        android:max="10"
+        android:defaultValue="0"/>
+
+</android.support.v7.preference.PreferenceScreen>

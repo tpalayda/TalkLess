@@ -16,4 +16,5 @@
     <string name="statistics">Statistics</string>
     <string name="presentation">Presentation</string>
     <string name="close">Close</string>
+    <string name="vibrationTime">vibrationTime</string>
 </resources>
