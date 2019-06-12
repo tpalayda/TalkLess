@@ -12,7 +12,7 @@ class InformationViewHolder(inflater: LayoutInflater, parent: ViewGroup)
 
     fun bind(presentation: GraphActivity.PresentationInfo) {
         val s = "Slide: " + presentation.slideNumber
-        val t = "Spent time: " + presentation.spentTime.toString()
+        val t = "Time: " + presentation.spentTime.toString() + " [s]"
         itemView.slide_time.text = t
         itemView.slide_number.text = s
 

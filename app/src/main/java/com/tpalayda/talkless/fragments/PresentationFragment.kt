@@ -5,11 +5,13 @@ import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.DatabaseUtils
 import android.os.Bundle
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.provider.OpenableColumns
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.util.TimeUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +29,7 @@ import java.text.DateFormat
 import java.text.DateFormat.getDateInstance
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class PresentationFragment : Fragment() {
@@ -58,20 +61,17 @@ class PresentationFragment : Fragment() {
             rootView.pdfView.visibility = View.GONE
             rootView.closeButton.visibility = View.GONE
             rootView.uploadButton.visibility = View.VISIBLE
-
-            endTime = System.currentTimeMillis()
-            val timeSpent = endTime - startTime
-            val time = hashMap.get(currentPage)
-            if(time != null) {
-                hashMap[currentPage] = timeSpent + time
-            } else {
-                hashMap[currentPage] = timeSpent
-            }
-
             saveHashMap();
         }
 
         return rootView
+    }
+
+    override fun onDestroy() {
+        if(startTime != 0L) {
+            saveHashMap()
+        }
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -90,7 +90,6 @@ class PresentationFragment : Fragment() {
                             cursor = context?.contentResolver?.query(uri, null, null, null, null)
                             if (cursor != null && cursor.moveToFirst()) {
                                 val displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)) as String
-                                Log.wtf("123", "displayName: " + displayName)
                                 doAsync {
                                     val df = SimpleDateFormat("dd/MMM/yyyy HH:mm")
                                     val date : String = df.format(Calendar.getInstance().time)
@@ -98,10 +97,6 @@ class PresentationFragment : Fragment() {
                                             "name" to displayName,
                                             "date" to date)
                                 }
-
-                                val count = DatabaseUtils.queryNumEntries(context?.database?.readableDatabase, "Presentation")
-
-                                //Log.wtf("123", "d: " + count)
                             }
                         } finally {
                             cursor?.close()
@@ -124,6 +119,7 @@ class PresentationFragment : Fragment() {
                     clickToStart.setOnClickListener {
                         startTime = System.currentTimeMillis()
                         clickToStart.visibility = View.GONE
+                        //updateTime(TimeUnit.MILLISECONDS.toSeconds(startTime).toString())
                     }
 
                     pdfView.visibility = View.VISIBLE
@@ -165,6 +161,16 @@ class PresentationFragment : Fragment() {
     }
 
     private fun saveHashMap() {
+
+        endTime = System.currentTimeMillis()
+        val timeSpent = endTime - startTime
+        val time = hashMap.get(currentPage)
+        if(time != null) {
+            hashMap[currentPage] = timeSpent + time
+        } else {
+            hashMap[currentPage] = timeSpent
+        }
+
         doAsync {
             if(presentationId != null && presentationId != -1L) {
                 hashMap.forEach {
@@ -177,8 +183,20 @@ class PresentationFragment : Fragment() {
                             "fg_presentation" to id)
                 }
             }
-            val count = DatabaseUtils.queryNumEntries(context?.database?.readableDatabase, "PresentationInfo")
-            Log.wtf("123", "PresentantionInfo:" + count)
         }
     }
+
+/*    private fun updateTime(timeString : String) {
+        val timerHandler = Handler()
+
+        var updater = Runnable {  }
+        updater = object  : Runnable {
+            override fun run() {
+                textViewTime.text = timeString
+                timerHandler.postDelayed(updater, 1000)
+            }
+        }
+
+        timerHandler.post(updater)
+    }*/
 }

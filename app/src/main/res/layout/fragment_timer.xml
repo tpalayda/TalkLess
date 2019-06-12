@@ -26,18 +26,21 @@ tools:context=".fragments.TimerFragment">
             android:id="@+id/hoursNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:descendantFocusability="blocksDescendants" />
 
         <NumberPicker
             android:id="@+id/minutesNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:descendantFocusability="blocksDescendants" />
 
         <NumberPicker
             android:id="@+id/secondsNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:descendantFocusability="blocksDescendants" />
     </LinearLayout>
 
@@ -58,7 +61,7 @@ tools:context=".fragments.TimerFragment">
         android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="120dp"
         android:text="@string/start"
         android:layout_height="wrap_content" />
 

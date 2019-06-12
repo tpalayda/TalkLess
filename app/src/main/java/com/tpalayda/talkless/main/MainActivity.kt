@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_timer -> {
                 if(activeFragment != timerFragment) {
                     supportFragmentManager.beginTransaction()
-                            .hide(activeFragment)
+                            .replace(R.id.container, timerFragment)
                             .show(timerFragment)
                             .commit()
 
@@ -46,10 +46,18 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_presentation -> {
                 if(activeFragment != presentationFragment) {
-                    supportFragmentManager.beginTransaction()
-                            .hide(activeFragment)
-                            .show(presentationFragment)
-                            .commit()
+                    if(activeFragment == timerFragment) {
+                        supportFragmentManager.beginTransaction()
+                                .add(R.id.container, presentationFragment, "2")
+                                .hide(activeFragment)
+                                .show(presentationFragment)
+                                .commit()
+                    } else {
+                        supportFragmentManager.beginTransaction()
+                                .replace(R.id.container, presentationFragment)
+                                .show(presentationFragment)
+                                .commit()
+                    }
                     Log.wtf("123", "presentationFragment")
                     activeFragment = presentationFragment
                 }
@@ -58,14 +66,20 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_statistics -> {
                 val statisticsFragment = StatisticsRecyclerViewFragment()
-
                 if(activeFragment != statisticsFragment) {
-                    supportFragmentManager.beginTransaction()
-                            .add(R.id.container, statisticsFragment, "3")
-                            .hide(activeFragment)
-                            .show(statisticsFragment)
-                            .commit()
-                    Log.wtf("123", "statisticsFragment")
+                    if(activeFragment == presentationFragment) {
+                        supportFragmentManager.beginTransaction()
+                                .replace(R.id.container, statisticsFragment, "3")
+                                .show(statisticsFragment)
+                                .commit()
+                    } else {
+                        supportFragmentManager.beginTransaction()
+                                .add(R.id.container, statisticsFragment, "3")
+                                .hide(activeFragment)
+                                .show(statisticsFragment)
+                                .commit()
+                        Log.wtf("123", "statisticsFragment")
+                    }
                     activeFragment = statisticsFragment
                 }
 
@@ -89,11 +103,6 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
                 .add(R.id.container, timerFragment, "1")
-                .commit()
-
-        supportFragmentManager.beginTransaction()
-                .add(R.id.container, presentationFragment, "2")
-                .hide(presentationFragment)
                 .commit()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
