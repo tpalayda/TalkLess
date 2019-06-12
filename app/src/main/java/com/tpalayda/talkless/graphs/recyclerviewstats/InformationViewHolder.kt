@@ -11,8 +11,10 @@ class InformationViewHolder(inflater: LayoutInflater, parent: ViewGroup)
     : RecyclerView.ViewHolder(inflater.inflate(R.layout.stats_item, parent, false)) {
 
     fun bind(presentation: GraphActivity.PresentationInfo) {
-        itemView.slide_time.text = presentation.spentTime
-        itemView.slide_number.text = presentation.slideNumber
+        val s = "Slide: " + presentation.slideNumber
+        val t = "Spent time: " + presentation.spentTime.toString()
+        itemView.slide_time.text = t
+        itemView.slide_number.text = s
 
     }
 }

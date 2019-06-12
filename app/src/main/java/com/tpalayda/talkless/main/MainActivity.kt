@@ -75,8 +75,15 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
-    //TODO perfomance cuz 2 fragments are hidden, need to be replaced
     override fun onCreate(savedInstanceState: Bundle?) {
+        val nightMode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("nightModePref", false)
+
+        if(nightMode) {
+            setTheme(R.style.NightTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

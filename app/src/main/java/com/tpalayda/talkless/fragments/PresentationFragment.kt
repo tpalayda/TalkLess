@@ -36,7 +36,7 @@ class PresentationFragment : Fragment() {
     private var hashMap : MutableMap<Int, Long> = mutableMapOf()
     private var presentationId : Long? = null
     private lateinit var preferences: SharedPreferences
-
+    private var currentPage : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class PresentationFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              sasvedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_presentation, container, false)
 
         rootView.uploadButton.visibility = View.VISIBLE
@@ -58,6 +58,15 @@ class PresentationFragment : Fragment() {
             rootView.pdfView.visibility = View.GONE
             rootView.closeButton.visibility = View.GONE
             rootView.uploadButton.visibility = View.VISIBLE
+
+            endTime = System.currentTimeMillis()
+            val timeSpent = endTime - startTime
+            val time = hashMap.get(currentPage)
+            if(time != null) {
+                hashMap[currentPage] = timeSpent + time
+            } else {
+                hashMap[currentPage] = timeSpent
+            }
 
             saveHashMap();
         }
@@ -100,13 +109,23 @@ class PresentationFragment : Fragment() {
                     } else if (uriString.startsWith("file://")) {
                         Log.wtf("123", "displayName: " + file.name)
                     }
-                    //Log.wtf("123", "path:" + path)
 
                     uploadButton.visibility = View.GONE
                     closeButton.visibility = View.VISIBLE
 
                     val nightMode : Boolean = preferences.getBoolean("nightModePref", false)
-                    val swipeMode : Boolean = preferences.getBoolean("horizontalSwipePref", false)
+                    //val swipeMode : Boolean = preferences.getBoolean("horizontalSwipePref", false)
+                    val swipeMode = true
+                    if(nightMode) {
+                        closeButton.setImageResource(R.drawable.ic_close_white_24dp)
+                    }
+
+                    clickToStart.visibility = View.VISIBLE
+                    clickToStart.setOnClickListener {
+                        startTime = System.currentTimeMillis()
+                        clickToStart.visibility = View.GONE
+                    }
+
                     pdfView.visibility = View.VISIBLE
                     pdfView.fromUri(uri)
                             .defaultPage(0)
@@ -129,19 +148,15 @@ class PresentationFragment : Fragment() {
                                     endTime = System.currentTimeMillis()
                                     val timeSpent = endTime - startTime
                                     val time = hashMap.get(page-1)
-                                    Log.wtf("123", "page:" + page)
                                     if(time != null) {
                                         hashMap[page-1] = time + timeSpent
-                                    }
-                                    else {
+                                    } else {
                                         hashMap[page] = timeSpent
                                     }
                                     startTime = System.currentTimeMillis()
-                                    //Log.wtf("123", "time:" + timeSpent)
-                                    //Log.wtf("123", "page:" + page) //page is a new page
-                                } else {
-                                    startTime = System.currentTimeMillis()
                                 }
+                                currentPage = page
+
                             }.load()
                 }
             }

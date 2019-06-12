@@ -12,7 +12,7 @@ import com.tpalayda.talkless.graphs.GraphActivity
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.doAsync
 
-class StatisticsAdapter(private val items: List<StatisticsRecyclerViewFragment.Presentation>, private val context: Context)
+class StatisticsAdapter(private val items: ArrayList<StatisticsRecyclerViewFragment.Presentation>, private val context: Context)
     : RecyclerView.Adapter<StatisticsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatisticsViewHolder {
@@ -37,5 +37,17 @@ class StatisticsAdapter(private val items: List<StatisticsRecyclerViewFragment.P
     override fun onBindViewHolder(holder: StatisticsViewHolder, position: Int) {
         val presentation = items[position]
         holder.bind(presentation)
+    }
+
+    fun removeAt(position: Int) : StatisticsRecyclerViewFragment.Presentation {
+        val result = items[position]
+        items.removeAt(position)
+        notifyItemRemoved(position)
+        return result
+    }
+
+    fun restoreAt(presentation : StatisticsRecyclerViewFragment.Presentation, position: Int) {
+        items.add(position, presentation)
+        notifyItemInserted(position)
     }
 }

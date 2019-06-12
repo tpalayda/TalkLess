@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.CountDownTimer
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_timer.*
 import kotlinx.android.synthetic.main.fragment_timer.view.*
@@ -19,17 +20,24 @@ class MyCountDownTimer : CountDownTimer {
     private var i = 0
     private var totalTime = 0L
     private var currentTime = 0L
+    private var vibrationPreference = 0L
+    private var rang = false
+    private var hideHourPicker = false
     var timeRemaining : Long = 0L
 
 
     constructor(millisInFuture : Long, countDownInterval : Long, view : View,
-                vibrationTime : Long, ctx : Context, totalTime : Long, vibrationAmplitude : Long) : super(millisInFuture, countDownInterval) {
+                vibrationTime : Long, ctx : Context, totalTime : Long,
+                vibrationAmplitude : Long, vibrationPreference : Long, hourPickerPref : Boolean)
+            : super(millisInFuture, countDownInterval) {
         rootView = view
         this.vibrationTime = vibrationTime
         this.ctx = ctx
         this.totalTime = totalTime
         this.currentTime = millisInFuture
         this.vibrationAmplitude = vibrationAmplitude
+        this.vibrationPreference = vibrationPreference
+        hideHourPicker = hourPickerPref
     }
 
     fun pause() {
@@ -43,14 +51,7 @@ class MyCountDownTimer : CountDownTimer {
     override fun onFinish() {
         rootView.progressBar.progress = 0
 
-        if(vibrationTime > 0) {
-            val vibrator = ctx.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            if(Build.VERSION.SDK_INT >= 26) {
-                vibrator.vibrate(VibrationEffect.createOneShot(vibrationTime, 10))
-            } else {
-                vibrator.vibrate(vibrationTime);
-            }
-        }
+        startVibration()
 
         rootView.countdownText.visibility = View.GONE
         rootView.pauseButton.visibility = View.GONE
@@ -61,6 +62,11 @@ class MyCountDownTimer : CountDownTimer {
 
     override fun onTick(millisUntilFinished: Long) {
         if(!pause) {
+
+            if(vibrationPreference >= millisUntilFinished && !rang) {
+                startVibration()
+                rang = true
+            }
 
             val minutes = millisUntilFinished / 60000
             val seconds = millisUntilFinished % 60000 / 1000
@@ -83,9 +89,22 @@ class MyCountDownTimer : CountDownTimer {
     }
 
     private fun showNumberPickers(rootView: View) {
-        rootView.hoursNumberPicker.visibility = View.VISIBLE
+        if(!hideHourPicker) {
+            rootView.hoursNumberPicker.visibility = View.VISIBLE
+        }
         rootView.minutesNumberPicker.visibility = View.VISIBLE
         rootView.secondsNumberPicker.visibility = View.VISIBLE
+    }
+
+    private fun startVibration() {
+        if(vibrationTime > 0) {
+            val vibrator = ctx.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if(Build.VERSION.SDK_INT >= 26) {
+                vibrator.vibrate(VibrationEffect.createOneShot(vibrationTime, 10))
+            } else {
+                vibrator.vibrate(vibrationTime);
+            }
+        }
     }
 
 }

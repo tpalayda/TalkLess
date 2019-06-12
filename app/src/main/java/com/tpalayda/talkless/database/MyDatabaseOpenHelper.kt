@@ -28,7 +28,7 @@ class MyDatabaseOpenHelper private constructor(ctx: Context) : ManagedSQLiteOpen
                 "slideNumber" to TEXT,
                 "spentTime" to TEXT,
                 "fg_presentation" to INTEGER,
-                FOREIGN_KEY("fg_presentation", "Presentation", "id"))
+                FOREIGN_KEY("fg_presentation", "Presentation", "id", ON_DELETE(ConstraintActions.CASCADE)))
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

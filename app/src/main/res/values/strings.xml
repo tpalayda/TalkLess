@@ -18,4 +18,6 @@
     <string name="vibrationTimeKey">vibrationTime</string>
     <string name="vibrationAmplitude">Vibration amplitude</string>
     <string name="prefColor">Color</string>
+    <string name="click_to_start">CLICK TO START</string>
+    <string name="start">start</string>
 </resources>

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.tpalayda.talkless.graphs.GraphActivity
 
-class InformationAdapter(val items: ArrayList<GraphActivity.PresentationInfo>, val context: Context)
+class InformationAdapter(private val items: ArrayList<GraphActivity.PresentationInfo>, val context: Context)
     : RecyclerView.Adapter<InformationViewHolder>() {
 
     override fun getItemCount() = items.size

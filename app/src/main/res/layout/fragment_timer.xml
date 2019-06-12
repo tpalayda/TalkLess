@@ -59,7 +59,7 @@ tools:context=".fragments.TimerFragment">
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="70dp"
-        android:text="start"
+        android:text="@string/start"
         android:layout_height="wrap_content" />
 
 
@@ -70,7 +70,8 @@ tools:context=".fragments.TimerFragment">
         android:background="@null"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_pause_black_48dp"
+        android:layout_marginBottom="40dp"
+        app:srcCompat="@drawable/ic_pause_black_154dp"
         android:contentDescription="@string/pause"
         android:layout_height="wrap_content" />
 
@@ -81,7 +82,8 @@ tools:context=".fragments.TimerFragment">
         android:background="@null"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_play_arrow_black_48dp"
+        app:srcCompat="@drawable/ic_play_arrow_black_154dp"
+        android:layout_marginBottom="40dp"
         android:contentDescription="@string/play"
         android:layout_height="wrap_content" />
 
@@ -92,7 +94,8 @@ tools:context=".fragments.TimerFragment">
         android:background="@null"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_stop_black_48dp"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/ic_stop_black_154dp"
         android:contentDescription="@string/play"
         android:layout_height="wrap_content" />
 

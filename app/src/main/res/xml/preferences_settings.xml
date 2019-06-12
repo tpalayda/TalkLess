@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <SwitchPreference
+<!--    <SwitchPreference
         android:key="horizontalSwipePref"
         android:title="Enable horizontal swipe"
         android:defaultValue="true"
-        android:summary="Disables vertical scrolling"/>
+        android:summary="Disables vertical scrolling"/>-->
 
     <SeekBarPreference
         android:key="@string/vibrationTimeKey"
@@ -30,4 +30,13 @@
         android:defaultValue="false"
         android:title="Night mode"
         android:summary="Enables night mode"/>
+    <CheckBoxPreference
+        android:key="progressColorPref"
+        android:defaultValue="true"
+        android:title="Gradient for timer"
+        android:summary="Displays progress color as a gradient"/>
+    <CheckBoxPreference
+        android:key="hideHourPref"
+        android:defaultValue="false"
+        android:title="Hide hour picker" />
 </android.support.v7.preference.PreferenceScreen>

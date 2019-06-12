@@ -9,7 +9,15 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
-    <style name="NightTheme" parent="Theme.AppCompat.DayNight">
-        <!-- ... -->
+    <style name="NightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/darkColor</item>
+        <item name="android:colorBackground">@color/darkColor</item>
+<!--
+        <item name="colorPrimary">@color/darkColor</item>
+-->
+        <item name="android:textColorPrimary">@color/whiteColor</item>
+        <item name="colorPrimaryDark">@color/darkColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 </resources>
